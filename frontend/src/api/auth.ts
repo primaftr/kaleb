@@ -4,9 +4,9 @@ import { useMutation } from '@tanstack/vue-query'
 import router from '@/router'
 
 export interface User {
-  email: string
+  email?: string
   password: string
-  name?: string
+  username: string
 }
 
 const cookie = useCookieManager()
@@ -21,7 +21,7 @@ const onSuccessCb = (data: any) => {
 export const useLogin = () => {
   return useMutation({
     mutationKey: ['Login'],
-    mutationFn: (variables: Omit<User, 'name'>) =>
+    mutationFn: (variables: Omit<User, 'username'>) =>
       axiosClient.post('/auth/login', { ...variables }),
     onSuccess: onSuccessCb
   })

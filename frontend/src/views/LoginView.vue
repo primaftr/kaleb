@@ -3,7 +3,7 @@
     <div class="w-full max-w-md space-y-6">
       <div class="space-y-2 text-center">
         <h1 class="text-3xl font-bold text-gray-50">Welcome back</h1>
-        <p class="text-gray-400">Enter your email and password to sign in</p>
+        <p class="text-gray-400">Enter your username and password to sign in</p>
       </div>
       <form @submit.prevent="onSubmit">
         <div class="space-y-2" v-if="loginError">
@@ -12,11 +12,11 @@
         <div class="space-y-4">
           <div class="space-y-2">
             <InputText
-              placeholder="email@example.com"
-              label="email"
+              placeholder="Username"
+              label="username"
               type="text"
-              :error="error?.email"
-              v-model:modelValue="formValue.email"
+              :error="error?.username"
+              v-model:modelValue="formValue.username"
             />
           </div>
           <div class="space-y-2">
@@ -60,17 +60,14 @@ import z from 'zod'
 type FormSchemaType = z.infer<typeof formSchema>
 
 const formValue = reactive({
-  email: '',
+  username: '',
   password: ''
 })
 
 const { login, loginError } = useAuthHook()
 
 const formSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: 'This field must be filled.' })
-    .email('This is not valid email'),
+  username: z.string().min(1, { message: 'This field must be filled.' }),
   password: z.string().min(1, { message: 'This field must be filled.' })
 })
 
@@ -82,7 +79,7 @@ const onSubmit = () => {
     error.value = validSchema.error.format()
   } else {
     error.value = { _errors: [] }
-    login({ email: formValue.email, password: formValue.password })
+    login({ username: formValue.username, password: formValue.password })
   }
 }
 </script>

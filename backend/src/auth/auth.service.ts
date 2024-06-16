@@ -2,6 +2,7 @@ import { Injectable, BadRequestException, NotFoundException } from '@nestjs/comm
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcryptjs';
+import { CreateUserPayloadDto, UserInfoDto } from './user.dto';
 
 @Injectable()
 export class AuthService {
@@ -10,8 +11,8 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
-  async validateUser(email: string, pass: string) {
-    const user = await this.usersService.findUserByEmail(email);
+  async validateUser(username: string, pass: string) {
+    const user = await this.usersService.findUserByUsername(username);
     if (user && (await bcrypt.compare(pass, user.password))) {
       const { password, ...result } = user;
       return result;
@@ -19,15 +20,15 @@ export class AuthService {
     return null;
   }
 
-  async login(user: any) {
-    const payload = { email: user.email, sub: user.id };
+  async login(user: UserInfoDto) {
+    const payload = { username: user.username, sub: user.id };
     return {
       access_token: this.jwtService.sign(payload),
     };
   }
 
-  async register(user: any) {
-    const existingUser = await this.usersService.findUserByEmail(user.email);
+  async register(user: CreateUserPayloadDto) {
+    const existingUser = await this.usersService.findUserByUsername(user.username);
     if (existingUser) {
       throw new BadRequestException('User already exist');
     }

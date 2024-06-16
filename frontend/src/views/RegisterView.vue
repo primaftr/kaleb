@@ -19,11 +19,11 @@
         </div>
         <div class="space-y-2">
           <InputText
-            label="name"
-            placeholder="John Doe"
+            label="username"
+            placeholder="Username"
             type="text"
-            v-model="formValue.name"
-            :error="error?.name"
+            v-model="formValue.username"
+            :error="error?.username"
           />
         </div>
         <div class="space-y-2">
@@ -63,13 +63,17 @@ import z from 'zod'
 
 type FormSchemaType = z.infer<typeof formSchema>
 const formValue = reactive({
-  name: '',
+  username: '',
   email: '',
   password: ''
 })
 
 const formSchema = z.object({
-  name: z.string().min(3, { message: 'This field must contain 3 or more characters' }).max(50),
+  username: z
+    .string()
+    .min(3, { message: 'This field must contain 3 or more characters' })
+    .max(50)
+    .regex(/^[a-zA-Z0-9]+$/, 'Username can only contain letters and numbers'),
   email: z
     .string()
     .min(1, { message: 'This field must be filled.' })
@@ -86,7 +90,11 @@ const onSubmit = () => {
     error.value = validSchema.error.format()
   } else {
     error.value = { _errors: [] }
-    register({ email: formValue.email, password: formValue.password, name: formValue.name })
+    register({
+      email: formValue.email,
+      password: formValue.password,
+      username: formValue.username
+    })
   }
 }
 </script>

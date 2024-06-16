@@ -1,16 +1,38 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-export class UserPayloadDto {
+export class FindUserPayloadDto {
+  @IsString()
+  @IsNotEmpty()
+  username?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+}
+export class UserInfoDto {
   @IsString()
   @IsNotEmpty()
   email: string;
 
   @IsString()
   @IsNotEmpty()
-  password: string;
-}
-export class UserDto extends UserPayloadDto {
+  username: string;
+
   @IsString()
   @IsOptional()
-  name?: string;
+  id: string;
+}
+
+export class CreateUserPayloadDto {
+  @IsString()
+  @IsNotEmpty()
+  username?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+
+  @IsString()
+  @IsNotEmpty()
+  email: string;
 }

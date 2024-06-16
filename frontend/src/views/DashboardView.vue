@@ -6,7 +6,7 @@
           <div class="h-8 w-32 rounded-md bg-gray-700 dark:bg-gray-600"></div>
         </div>
         <div v-else>
-          <h1 class="text-3xl font-bold text-gray-50">Hi, {{ data?.data?.name }}</h1>
+          <h1 class="text-3xl font-bold text-gray-50">Hi, {{ data?.data?.username }}</h1>
         </div>
         <button
           @click="logout"
