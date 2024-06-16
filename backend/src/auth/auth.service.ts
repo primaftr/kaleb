@@ -11,7 +11,7 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, pass: string) {
-    const user = await this.usersService.findOne(email);
+    const user = await this.usersService.findUserByEmail(email);
     if (user && (await bcrypt.compare(pass, user.password))) {
       const { password, ...result } = user;
       return result;
@@ -27,9 +27,9 @@ export class AuthService {
   }
 
   async register(user: any) {
-    const existingUser = await this.usersService.findOne(user.email);
+    const existingUser = await this.usersService.findUserByEmail(user.email);
     if (existingUser) {
-      throw new BadRequestException('Email already exists');
+      throw new BadRequestException('User already exist');
     }
     const newUser = await this.usersService.create(user);
     return this.login(newUser);
