@@ -56,6 +56,19 @@ yarn start
 
 5. The backend API will be available at `http://localhost:3000`.
 
+## Prisma Migrations
+
+1. **Run Migrations**:
+
+   If you need to run Prisma migrations, use the following commands:
+
+   ```bash
+   cd backend
+   npx prisma migrate dev
+   # or
+   yarn prisma migrate dev
+   ```
+
 ### Frontend Setup
 
 1. Navigate to the `frontend` directory:
