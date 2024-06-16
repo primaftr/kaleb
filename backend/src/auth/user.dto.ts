@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-export class UserDto {
+export class UserPayloadDto {
   @IsString()
   @IsNotEmpty()
   email: string;
@@ -8,7 +8,8 @@ export class UserDto {
   @IsString()
   @IsNotEmpty()
   password: string;
-
+}
+export class UserDto extends UserPayloadDto {
   @IsString()
   @IsOptional()
   name?: string;
