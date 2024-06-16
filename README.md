@@ -90,7 +90,7 @@ npm run serve
 yarn serve
 ```
 
-5. The frontend application will be available at `http://localhost:8080`.
+5. The frontend application will be available at `http://localhost:5173`.
 
 ## Building for Production
 
