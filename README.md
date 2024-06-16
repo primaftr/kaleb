@@ -1,4 +1,4 @@
-# My Application
+# Kaleb Assignment
 
 This is a simple web application featuring login, register, and dashboard functionality. The backend is built using NestJS, while the frontend is built using Vue.js.
 
